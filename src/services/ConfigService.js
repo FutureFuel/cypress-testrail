@@ -211,6 +211,38 @@ class ConfigService {
      *
      * @returns {string}
      */
+    getPlanId() {
+        if (this.config === null) {
+            return '';
+        }
+
+        let planId = '';
+
+        // CYPRESS_TESTRAIL_PLAN_ID
+        if (this.config.CYPRESS_TESTRAIL_PLAN_ID !== undefined && this.config.CYPRESS_TESTRAIL_PLAN_ID !== '') {
+            planId = this.config.CYPRESS_TESTRAIL_PLAN_ID;
+        } else {
+            if (this.config.testrail === undefined || this.config.testrail === null) {
+                return '';
+            }
+            planId = this.config.testrail.planId;
+
+            if (planId === undefined || planId === null) {
+                return '';
+            }
+        }
+
+        planId = String(planId);
+        planId = planId.replace('R', '');
+        planId = planId.trim();
+
+        return planId;
+    }
+
+    /**
+     *
+     * @returns {string}
+     */
     getRunId() {
         if (this.config === null) {
             return '';

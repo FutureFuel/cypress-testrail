@@ -23,6 +23,29 @@ class ApiClient {
      * @param onError
      * @returns {Promise<AxiosResponse<any>>}
      */
+    async getData(slug) {
+        return axios({
+            method: 'get',
+            url: this.baseUrl + slug,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            auth: {
+                username: this.username,
+                password: this.password,
+            },
+        })
+            .then((response) => response.data)
+    }
+
+    /**
+     *
+     * @param slug
+     * @param postData
+     * @param onSuccess
+     * @param onError
+     * @returns {Promise<AxiosResponse<any>>}
+     */
     sendData(slug, postData, onSuccess, onError) {
         return axios({
             method: 'post',

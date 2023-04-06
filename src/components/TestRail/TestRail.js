@@ -16,6 +16,40 @@ class TestRail {
 
     /**
      *
+     * @param planId
+     * @param callback
+     * @returns {Promise<*>}
+     */
+    async getPlan(planId) {
+        return this.client.getData('/add_run/' + planId);
+    }
+
+    /**
+     *
+     * @param planId
+     * @param description
+     * @returns {Promise<*>}
+     */
+    async updatePlan(planId, description) {
+        const postData = {
+            description: description,
+        };
+
+        return this.client.sendData(
+            '/update_plan/' + planId,
+            postData,
+            () => {
+                ColorConsole.success('  TestPlan updated in TestRail');
+            },
+            (statusCode, statusText, errorText) => {
+                ColorConsole.error('  Could not update TestRail plan for plan ID ' + planId + ': ' + statusCode + ' ' + statusText + ' >> ' + errorText);
+                ColorConsole.debug('');
+            }
+        );
+    }
+
+    /**
+     *
      * @param projectId
      * @param milestoneId
      * @param suiteId

@@ -26,6 +26,7 @@ class Reporter {
         this.milestoneId = configService.getMilestoneId();
         this.suiteId = configService.getSuiteId();
         this.runId = configService.getRunId();
+        this.planId = configService.getPlanId();        
         this.runName = configService.getRunName();
         this.screenshotsEnabled = configService.isScreenshotsEnabled();
 
@@ -130,6 +131,20 @@ class Reporter {
                 /* eslint-disable no-console */
                 ColorConsole.debug('  New TestRail Run: R' + this.runId);
             });
+        }
+
+        // If we have a planId, update description with link to Cypress Dashboard
+        if (this.planId !== '') {
+            const plan = await this.testrail.getPlan(this.planId);
+
+            // Find placeholder string
+            const placeholder = `Cypress Dashboard Run - ${details.browser.name} - Execution start pending (this will update when it starts)`;
+            if (plan.description.includes(placeholder)) {
+                // Update description with link to Cypress Dashboard
+                const newLine = `[Cypress Dashboard Run - ${details.browser.name}](${details.runUrl})`;
+                const newDescripition = plan.description.replaceAll(placeholder, newLine);
+                await this.testrail.updatePlan(this.planId, newDescripition);
+            }
         }
     }
 
