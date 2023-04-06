@@ -54,17 +54,17 @@ class Reporter {
 
         plugins.push((on) => {
             on('before:run', async (details) => {
-                await this._beforeRun(details);
+                await this.beforeRun(details);
             });
         });
         plugins.push((on) => {
             on('after:spec', async (spec, results) => {
-                await this._afterSpec(spec, results);
+                await this.afterSpec(spec, results);
             });
         });        
         plugins.push((on) => {
             on('after:run', async () => {
-                await this._afterRun();
+                await this.afterRun();
             });
         });
         return plugins;
@@ -75,7 +75,7 @@ class Reporter {
      * @param details
      * @private
      */
-    async _beforeRun(details) {
+    async beforeRun(details) {
         this.cypressVersion = details.cypressVersion;
         this.browser = details.browser.displayName + ' (' + details.browser.version + ')';
         this.system = details.system.osName + ' (' + details.system.osVersion + ')';
@@ -139,7 +139,7 @@ class Reporter {
      * @param results
      * @private
      */
-    async _afterSpec(spec, results) {
+    async afterSpec(spec, results) {
         if (this.modeCreateRun) {
             // if we are in the mode to dynamically create runs
             // then we also need to add the newly found runs to our created test run
@@ -163,7 +163,7 @@ class Reporter {
      *
      * @private
      */
-    async _afterRun() {
+    async afterRun() {
         if (this.modeCreateRun) {
             if (this.closeRun) {
                 // if we have just created a run then automatically close it
