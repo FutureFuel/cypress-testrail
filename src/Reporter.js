@@ -135,7 +135,7 @@ class Reporter {
         }
 
         // If we have a planId, update description with link to Cypress Dashboard
-        if (this.planId !== '') {
+        if (this.planId !== '' && details.runUrl) {
             const plan = await this.testrail.getPlan(this.planId);
 
             // Find placeholder string

@@ -17,11 +17,10 @@ class TestRail {
     /**
      *
      * @param planId
-     * @param callback
      * @returns {Promise<*>}
      */
     async getPlan(planId) {
-        return this.client.getData('/add_run/' + planId);
+        return this.client.getData('/get_plan/' + planId);
     }
 
     /**

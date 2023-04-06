@@ -219,8 +219,8 @@ class ConfigService {
         let planId = '';
 
         // CYPRESS_TESTRAIL_PLAN_ID
-        if (this.config.CYPRESS_TESTRAIL_PLAN_ID !== undefined && this.config.CYPRESS_TESTRAIL_PLAN_ID !== '') {
-            planId = this.config.CYPRESS_TESTRAIL_PLAN_ID;
+        if (this.config.TESTRAIL_PLAN_ID !== undefined && this.config.TESTRAIL_PLAN_ID !== '') {
+            planId = this.config.TESTRAIL_PLAN_ID;
         } else {
             if (this.config.testrail === undefined || this.config.testrail === null) {
                 return '';
