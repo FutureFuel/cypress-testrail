@@ -67,6 +67,7 @@ class Reporter {
                 await this._afterRun();
             });
         });
+        return plugins;
     }
 
     /**

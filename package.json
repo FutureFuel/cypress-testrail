@@ -9,12 +9,12 @@
     "testautomation"
   ],
   "author": {
-    "name": "Christian Dangl"
+    "name": "Candidly"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/boxblinkracer/cypress-testrail.git"
+    "url": "https://github.com/futurefuel/cypress-testrail.git"
   },
   "main": "index.js",
   "bin": {
