@@ -10,13 +10,10 @@ const packageData = require('../package.json');
 class Reporter {
     /**
      *
-     * @param on
      * @param config
      * @param customComment provide a custom comment if you want to add something to the result comment
      */
-    constructor(on, config, customComment) {
-        this.on = on;
-
+    constructor(config, customComment) {
         this.testCaseParser = new TestCaseParser();
 
         /* eslint-disable no-undef */
@@ -47,23 +44,28 @@ class Reporter {
     /**
      *
      */
-    register() {
+    getPlugins() {
+        const plugins = [];
         // if our config is not valid
         // then do not even register anything
         if (!this.enabled) {
-            return;
+            return plugins;
         }
 
-        this.on('before:run', async (details) => {
-            await this._beforeRun(details);
+        plugins.push((on) => {
+            on('before:run', async (details) => {
+                await this._beforeRun(details);
+            });
         });
-
-        this.on('after:spec', async (spec, results) => {
-            await this._afterSpec(spec, results);
-        });
-
-        this.on('after:run', async () => {
-            await this._afterRun();
+        plugins.push((on) => {
+            on('after:spec', async (spec, results) => {
+                await this._afterSpec(spec, results);
+            });
+        });        
+        plugins.push((on) => {
+            on('after:run', async () => {
+                await this._afterRun();
+            });
         });
     }
 
