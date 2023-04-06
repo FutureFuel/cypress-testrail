@@ -99,6 +99,7 @@ class Reporter {
         } else {
             ColorConsole.info('  TestRail Mode: Use existing Run');
             ColorConsole.info('  TestRail Run ID: ' + this.runId);
+            ColorConsole.info('  TestRail Plan ID: ' + this.planId);
         }
 
         ColorConsole.info('  Screenshots: ' + this.screenshotsEnabled);
